@@ -1,0 +1,15 @@
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  Date:
+    Type: String
+Resources:
+  Secret:
+    Type: Custom::Lambda
+    Properties:
+      ServiceToken: !ImportValue cfn-lambda-ssm-secret:LambdaArn
+      Name: /demo/cfn-lambda/ssm-secret/secret
+      DeployAlways: !Ref Date
+Outputs:
+  OutputSecret:
+    Value: !GetAtt Secret.Secret
+
